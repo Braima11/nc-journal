@@ -1,5 +1,6 @@
-import getAllArticles from "../files/apis"
+import { getAllArticles } from "../files/apis"
 import { useState, useEffect } from "react"
+import ArticleCard from "./ArticleCard"
 
 export default function AllArticles() {
     const [allArticles, setAllArticles] = useState([])
@@ -8,7 +9,6 @@ export default function AllArticles() {
     useEffect(() => {
         getAllArticles()
             .then((response) => {
-                console.log(response)
                 setAllArticles(response.articles) 
                 setLoading(false)
             })
@@ -17,19 +17,7 @@ export default function AllArticles() {
 
     const mappedArticles = allArticles.map((article) => {
         return (
-            <section  key={article.article_id} className="article-card">
-                <h2>{article.title}</h2>
-                <img 
-                    src={article.article_img_url} 
-                    alt={article.title}
-                />
-                <p>By {article.author}</p>
-                <p>Topic: {article.topic}</p>
-                <p>Comments: {article.comment_count}</p>
-                <p>Votes: {article.votes}</p>
-                <p>{article.body.slice(0, 100)}...</p>  
-                <p>Posted on: {new Date(article.created_at).toLocaleDateString()}</p>
-            </section>
+            <ArticleCard  key={article.article_id} article ={article}/>
         )
     })
 

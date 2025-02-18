@@ -1,16 +1,19 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import AllArticles from './AllArticles'
+import { Routes,Route } from 'react-router'
+import SingleArticle from './SIngleArticle'
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
       <h1 className ="title">News Journal</h1>
-      <AllArticles/>
+      <Routes>
+        <Route path="/" element={<AllArticles />} />
+        <Route path="api/articles/:article_id" element={<SingleArticle/>} />
+      </Routes>
     </>
   )
 }
