@@ -33,3 +33,12 @@ export function updateVote (article_id,vote) {
 
     })
 }
+
+export function postComment (article_id,comment){
+    return newsApi.post(`/api/articles/${article_id}/comments`, comment)
+    .then((response)=>{
+
+        console.log(response)
+        return response.data
+    })
+}

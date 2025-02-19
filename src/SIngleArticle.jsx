@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getSingleArticle,getCommentById,updateVote} from "../files/apis";
+import { getSingleArticle,getCommentById,updateVote,postComment} from "../files/apis";
 
 export default function SingleArticle () {
 
@@ -32,7 +32,7 @@ export default function SingleArticle () {
             setComment(comments)
             
         })
-    },[])
+    },[article_id])
 
 
     const mapComments = comment.comments?.map((comment) => {
@@ -42,7 +42,7 @@ export default function SingleArticle () {
                 <p>{comment.body}</p>
                 <div className="comment-info">
                     <span>Votes: {comment.votes}</span>
-                    <span>Posted: {new Date(comment.created_at).toLocaleDateString()}</span>
+                    <span> Posted: {new Date(comment.created_at).toLocaleDateString()}</span>
                 </div>
             </div>
         )
@@ -84,6 +84,32 @@ export default function SingleArticle () {
         
     }
 
+    function post () {
+
+        const formData = new FormData(document.getElementById("post-comment"))
+        const username = article.author
+        const body = formData.get("body")
+
+        const commentObject = {username,body}
+
+        postComment(article_id,commentObject)
+        .then(({comment})=>{
+
+            setComment(prevComments => ({
+                comments: [comment, ...prevComments.comments]
+            }))
+
+            
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
+
+
+    }
+
+
+  
     return (
         <div className="single-article-container">
             {loading ? (
@@ -142,6 +168,11 @@ export default function SingleArticle () {
     
                     {viewComment && (
                         <section className="comments-section">
+                            <form action={post} id="post-comment">
+                               <label htmlFor="body-text">Leave a comment
+                                <textarea className="body-text" name="body" rows={5}/></label> 
+                                <button className="submit-comment">Submit comment</button>
+                            </form>
                             {mapComments}
                         </section>
                     )}
