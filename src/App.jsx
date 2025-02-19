@@ -3,17 +3,20 @@ import './App.css'
 import AllArticles from './AllArticles'
 import { Routes,Route } from 'react-router'
 import SingleArticle from './SIngleArticle'
+import Header from './Header'
+
 
 
 function App() {
 
   return (
     <>
-      <h1 className ="title">News Journal</h1>
+      <Header/>
       <Routes>
         <Route path="/" element={<AllArticles />} />
         <Route path="api/articles/:article_id" element={<SingleArticle/>} />
       </Routes>
+      
     </>
   )
 }

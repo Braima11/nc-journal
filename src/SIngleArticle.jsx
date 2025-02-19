@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { getSingleArticle } from "../files/apis";
+import { getSingleArticle,getCommentById} from "../files/apis";
 
 
 export default function SingleArticle () {
 
     const [article,setArticle] = useState([])
     const [loading,setLoading] = useState(true)
+    const [comment,setComment] =useState([])
+    const [viewComment,setViewComment] =useState(false)
 
     const {article_id} =useParams()
 
@@ -19,10 +21,38 @@ export default function SingleArticle () {
             setLoading(false)
         })
 
-
-
-
     },[article_id])
+
+    useEffect(()=>{
+        getCommentById(article_id)
+        .then((comments)=>{
+            setComment(comments)
+            
+        })
+    },[])
+
+
+    const mapComments = comment.comments?.map((comment) => {
+        return (
+            <div key={comment.comment_id} className="comment-card">
+                <h3>{comment.author}</h3>
+                <p>{comment.body}</p>
+                <div className="comment-info">
+                    <span>Votes: {comment.votes}</span>
+                    <span>Posted: {new Date(comment.created_at).toLocaleDateString()}</span>
+                </div>
+            </div>
+        )
+    })
+
+    function hideShowComments () {
+        setViewComment((previousState)=>{
+            return !previousState
+        })
+    }
+    
+    const buttonText = viewComment ? <p>Hide comments 💬</p> :<p>View comments 💬</p> 
+
 
     return   (
        <div className="single-article-container">
@@ -53,15 +83,12 @@ export default function SingleArticle () {
                     <span>👍 {article.votes} votes</span>
                 </div>
                 <div className="comments-count">
-                    <span>💬 {article.comment_count} comments</span>
+                    <span><button onClick={hideShowComments} className="comment-toggle">{buttonText}</button> {article.comment_count} comments</span>
                 </div>
             </div>
-            <section className="comments-section">
-                <h2>Comments</h2>
-                <div className="comments-placeholder">
-                    <p>Comments loading soon...</p>
-                </div>
-            </section></>}
+            {viewComment ? <section className="comments-section">
+                {mapComments}
+            </section>:null}</>}
            
         </div>
     )
