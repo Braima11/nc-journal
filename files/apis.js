@@ -24,3 +24,12 @@ export function getCommentById (article_id) {
         return response.data
     })
 }
+
+export function updateVote (article_id,vote) {
+    return newsApi.patch(`/api/articles/${article_id}`,{votes:vote})
+    .then((response)=>{
+
+        return response.data
+
+    })
+}
