@@ -28,8 +28,8 @@ export default function ArticleCard ({article}) {
                 <p>Topic: {article.topic}</p>
                 <p>Comments: {article.comment_count}</p>
                 <p>Votes: {article.votes}</p>
-                <p>{article.body.slice(0, 100)}...<button onClick={articleClick}>Read Article <br/></button></p>
-                
+                <p>{article.body.slice(0, 100)}...</p>
+                <button onClick={articleClick}>Read Article </button>
                 <p>Posted on: {new Date(article.created_at).toLocaleDateString()}</p>
             </section>
     )
