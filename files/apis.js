@@ -4,12 +4,13 @@ const newsApi = axios.create({
     baseURL: 'https://news-journal.onrender.com/'
 });
 
-export  function getAllArticles  () {
-    return newsApi.get("/api/articles")
-    .then((response)=>{
-        return response.data
-    })
-};
+export function getAllArticles(topic) {
+    const url = topic ? `/api/articles?topic=${topic}` : "/api/articles"
+    return newsApi.get(url)
+    .then((response) => {
+        return response.data;
+    });
+}
 
 export  function getSingleArticle (article_id){
     return newsApi.get(`/api/articles/${article_id}`)
@@ -47,5 +48,12 @@ export function deleteCommentById (comment_id) {
     return newsApi.delete(`/api/comments/${comment_id}`)
     .then((response)=>{
         return response.data
+    })
+}
+
+export function getTopics () {
+    return newsApi.get("/api/topics")
+        .then((response) => {
+            return response.data;
     })
 }

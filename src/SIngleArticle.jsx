@@ -12,6 +12,7 @@ export default function SingleArticle() {
     const [voteError, setVoteError] = useState(false);
     const [viewPostComment, setViewPostComment] = useState(false);
     const [disableForm, setDisableForm] = useState(false);
+    const [commentCount,setCommentCount] = useState(0)
 
     const { article_id } = useParams();
 
@@ -20,6 +21,7 @@ export default function SingleArticle() {
             setArticle(article);
             setVoting(article.votes);
             setLoading(false);
+            setCommentCount(Number(article.comment_count))
         });
     }, [article_id]);
 
@@ -56,6 +58,10 @@ export default function SingleArticle() {
                 setComment(prevComments => ({
                     comments: [comment, ...prevComments.comments]
                 }));
+
+                setCommentCount((previousCount)=>{
+                    return previousCount + 1
+                })
                 setDisableForm(true);
             })
             .catch((error) => {
@@ -72,10 +78,14 @@ export default function SingleArticle() {
             setComment(prevComments => ({
                 comments: prevComments.comments.filter(comment => comment.comment_id !== id)
             }));
+
+            setCommentCount((previousCount) => {
+                return previousCount -1
+            })
         });
     }
 
-    const buttonText = viewComment ? "Hide comments 💬" : "View comments 💬";
+    const buttonText = viewComment ? "Hide comments 💬 " : "View comments 💬 ";
 
     return (
         <article className="single-article-container">
@@ -134,7 +144,7 @@ export default function SingleArticle() {
                                 >
                                     {buttonText}
                                 </button>
-                                <span>{article.comment_count} comments</span>
+                                <span>{commentCount} comments</span>
                             </div>
                         </div>
 

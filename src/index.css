@@ -1,6 +1,6 @@
 
 :root {
-  /* Color palette */
+
   --primary-color: #2d3748;
   --secondary-color: #4a5568;
   --accent-color: #3182ce;
@@ -14,16 +14,12 @@
   --success-color: #48bb78;
   --error-color: #f56565;
 
-  /* Typography */
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
-/* Reset and base styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography */
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
@@ -66,7 +62,7 @@ p {
   line-height: 1.7;
 }
 
-/* Links */
+
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -78,7 +74,6 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Buttons */
 button {
   display: inline-flex;
   align-items: center;
@@ -111,7 +106,7 @@ button:disabled {
   transform: none;
 }
 
-/* Layout containers */
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -119,7 +114,7 @@ button:disabled {
   padding: 0 1rem;
 }
 
-/* Article specific styles */
+
 .article-container {
   max-width: 800px;
   margin: 2rem auto;
@@ -147,7 +142,7 @@ button:disabled {
   margin: 1.5rem 0;
 }
 
-/* Comment section */
+
 .comments-section {
   margin-top: 3rem;
   padding-top: 2rem;
@@ -166,7 +161,7 @@ button:disabled {
   transform: translateY(-2px);
 }
 
-/* Form elements */
+
 textarea, input {
   width: 100%;
   padding: 0.75rem;
@@ -183,33 +178,7 @@ textarea:focus, input:focus {
   box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
 
-  body {
-    background-color: var(--background-dark);
-    color: var(--text-dark);
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--text-dark);
-  }
-
-  .comment-card {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-
-  textarea, input {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-dark);
-  }
-}
-
-/* Responsive breakpoints */
 @media (max-width: 768px) {
   :root {
     font-size: 14px;
@@ -228,20 +197,4 @@ textarea:focus, input:focus {
   }
 }
 
-/* Print styles */
-@media print {
-  body {
-    background: white;
-    color: black;
-  }
 
-  .comments-section,
-  button {
-    display: none;
-  }
-
-  a {
-    text-decoration: none;
-    color: black;
-  }
-}

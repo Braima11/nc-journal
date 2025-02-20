@@ -11,7 +11,7 @@ export default function ArticleCard ({article}) {
        getSingleArticle(article.article_id)
        .then(()=>{
 
-        navigate(`/api/articles/${article.article_id}`)
+        navigate(`/articles/${article.article_id}`)
 
        })
 
