@@ -42,3 +42,10 @@ export function postComment (article_id,comment){
         return response.data
     })
 }
+
+export function deleteCommentById (comment_id) {
+    return newsApi.delete(`/api/comments/${comment_id}`)
+    .then((response)=>{
+        return response.data
+    })
+}
