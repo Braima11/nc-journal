@@ -4,12 +4,23 @@ const newsApi = axios.create({
     baseURL: 'https://news-journal.onrender.com/'
 });
 
-export function getAllArticles(topic) {
-    const url = topic ? `/api/articles?topic=${topic}` : "/api/articles"
+export function getAllArticles(params = {}) {
+    const { topic, sort_by, order } = params;
+    let url = "/api/articles";
+
+    // Build query string with any provided parameters
+    if (topic || sort_by || order) {
+        const queryParams = [];
+        if (topic) queryParams.push(`topic=${topic}`);
+        if (sort_by) queryParams.push(`sort_by=${sort_by}`);
+        if (order) queryParams.push(`order=${order}`);
+        url += `?${queryParams.join('&')}`;
+    }
+
     return newsApi.get(url)
-    .then((response) => {
-        return response.data;
-    });
+        .then((response) => {
+            return response.data;
+        });
 }
 
 export  function getSingleArticle (article_id){
