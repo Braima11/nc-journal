@@ -13,7 +13,6 @@ export default function Topics() {
                 setLoading(false);
             })
             .catch(error => {
-                console.error("Error loading topics:", error);
                 setLoading(false);
             });
     }, []);
