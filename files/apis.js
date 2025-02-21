@@ -8,7 +8,6 @@ export function getAllArticles(params = {}) {
     const { topic, sort_by, order } = params;
     let url = "/api/articles";
 
-    // Build query string with any provided parameters
     if (topic || sort_by || order) {
         const queryParams = [];
         if (topic) queryParams.push(`topic=${topic}`);
@@ -27,6 +26,9 @@ export  function getSingleArticle (article_id){
     return newsApi.get(`/api/articles/${article_id}`)
     .then((response)=>{
         return response.data
+    })
+    .catch((error)=>{
+        console.log(error, "api call")
     })
 }
 
