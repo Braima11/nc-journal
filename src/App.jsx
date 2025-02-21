@@ -5,6 +5,7 @@ import { Routes,Route,Navigate } from 'react-router'
 import SingleArticle from './SIngleArticle'
 import Header from './Header'
 import Topics from './Topics'
+import ErrorPage from './Error'
 
 
 
@@ -18,6 +19,7 @@ function App() {
         <Route path="/articles/:article_id" element={<SingleArticle/>} />
          <Route path="/topics" element={<Topics/>}/>
          <Route path="/" element={<Navigate to="/articles" />} />
+          <Route path="*" element={<ErrorPage message="Page not found" />} />
       </Routes>
       
     </>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getSingleArticle, getCommentById, updateVote, postComment, deleteCommentById } from "../files/apis";
+import ErrorPage from "./Error";
 
 export default function SingleArticle() {
     const [article, setArticle] = useState([]);
@@ -11,8 +12,9 @@ export default function SingleArticle() {
     const [disableButton, setDisableButton] = useState(true);
     const [voteError, setVoteError] = useState(false);
     const [viewPostComment, setViewPostComment] = useState(false);
-    const [disableForm, setDisableForm] = useState(false);
+    const [btnText,setButtonText]= useState(false)
     const [commentCount,setCommentCount] = useState(0)
+    const [error, setError] = useState(null)
 
     const { article_id } = useParams();
 
@@ -21,9 +23,23 @@ export default function SingleArticle() {
             setArticle(article);
             setVoting(article.votes);
             setLoading(false);
+            setError(null)
             setCommentCount(Number(article.comment_count))
-        });
+        })
+        .catch((error)=>{
+
+            console.log(error)
+            if (error){
+                setError("article not found")
+            } 
+
+            setLoading(false)
+        })
+        
     }, [article_id]);
+
+    if (error) return <ErrorPage message={error} />
+
 
     useEffect(() => {
         getCommentById(article_id).then((comments) => {
@@ -62,7 +78,12 @@ export default function SingleArticle() {
                 setCommentCount((previousCount)=>{
                     return previousCount + 1
                 })
-                setDisableForm(true);
+
+                setButtonText(true)
+
+                setTimeout(() => {
+                    setButtonText(false)
+                }, 5000);
             })
             .catch((error) => {
                 console.log(error);
@@ -172,15 +193,13 @@ export default function SingleArticle() {
                                                 className="body-text"
                                                 name="body"
                                                 rows={4}
-                                                disabled={disableForm}
                                                 required
                                             />
                                         </label>
                                         <button 
                                             className="submit-comment"
-                                            disabled={disableForm}
                                         >
-                                            {disableForm ? "Comment Posted" : "Submit Form"}
+                                            {btnText? "Comment Posted" : "Submit Form"}
                                         </button>
                                     </form>
                                 )}
