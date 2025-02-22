@@ -5,16 +5,18 @@ const newsApi = axios.create({
 });
 
 export function getAllArticles(params = {}) {
-    const { topic, sort_by, order } = params;
+    const { author,topic, sort_by, order } = params;
     let url = "/api/articles";
 
-    if (topic || sort_by || order) {
+    if (author|| topic || sort_by || order) {
         const queryParams = [];
         if (topic) queryParams.push(`topic=${topic}`);
         if (sort_by) queryParams.push(`sort_by=${sort_by}`);
         if (order) queryParams.push(`order=${order}`);
         url += `?${queryParams.join('&')}`;
     }
+
+    console.log(url)
 
     return newsApi.get(url)
         .then((response) => {
@@ -68,5 +70,12 @@ export function getTopics () {
     return newsApi.get("/api/topics")
         .then((response) => {
             return response.data;
+    })
+}
+
+export function getUsers() {
+    return newsApi.get("/api/users")
+    .then((response)=>{
+      return response.data
     })
 }

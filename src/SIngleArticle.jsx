@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams } from 'react-router-dom'
 import { getSingleArticle, getCommentById, updateVote, postComment, deleteCommentById } from "../files/apis";
 import ErrorPage from "./Error";
 
