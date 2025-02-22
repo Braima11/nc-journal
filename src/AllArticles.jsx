@@ -11,9 +11,7 @@ export default function AllArticles() {
     
    
     const topic = searchParams.get('topic')
-    console.log(topic)
     const author = searchParams.get("author")
-    console.log(author)
 
     useEffect(() => {
         const [sort_by, order] = sortBy.split('-')
@@ -25,8 +23,6 @@ export default function AllArticles() {
 
               if (author) {
                 response.articles = response.articles.filter ((article)=>{
-
-                    console.log(article)
                     return article.author === author
                 })
               }

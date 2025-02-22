@@ -27,8 +27,6 @@ export default function SingleArticle() {
             setCommentCount(Number(article.comment_count))
         })
         .catch((error)=>{
-
-            console.log(error)
             if (error){
                 setError("article not found")
             } 
@@ -85,9 +83,6 @@ export default function SingleArticle() {
                     setButtonText(false)
                 }, 5000);
             })
-            .catch((error) => {
-                console.log(error);
-            });
     }
 
     function viewHideForm() {

@@ -8,15 +8,13 @@ export function getAllArticles(params = {}) {
     const { author,topic, sort_by, order } = params;
     let url = "/api/articles";
 
-    if (author|| topic || sort_by || order) {
+    if (topic || sort_by || order) {
         const queryParams = [];
         if (topic) queryParams.push(`topic=${topic}`);
         if (sort_by) queryParams.push(`sort_by=${sort_by}`);
         if (order) queryParams.push(`order=${order}`);
         url += `?${queryParams.join('&')}`;
     }
-
-    console.log(url)
 
     return newsApi.get(url)
         .then((response) => {
@@ -29,9 +27,7 @@ export  function getSingleArticle (article_id){
     .then((response)=>{
         return response.data
     })
-    .catch((error)=>{
-        console.log(error, "api call")
-    })
+   
 }
 
 export function getCommentById (article_id) {
@@ -54,7 +50,6 @@ export function postComment (article_id,comment){
     return newsApi.post(`/api/articles/${article_id}/comments`, comment)
     .then((response)=>{
 
-        console.log(response)
         return response.data
     })
 }
